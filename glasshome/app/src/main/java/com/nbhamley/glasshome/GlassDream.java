@@ -46,6 +46,7 @@ public class GlassDream extends DreamService {
         date = Glass.text(this, "", 44, 0xEBFFFFFF, true);
         time = Parts.thin(this, 340, 0xFFFFFFFF);
         place = Glass.text(this, "", 26, 0xC7FFFFFF, false);
+        for (TextView t : new TextView[]{date, time, place}) t.setGravity(Gravity.CENTER_HORIZONTAL);
         slot = new FrameLayout(this);
         column.addView(date);
         column.addView(time);

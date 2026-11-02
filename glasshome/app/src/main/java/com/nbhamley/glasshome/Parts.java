@@ -83,7 +83,7 @@ final class Parts {
 
         List<RenewalList.Item> items = RenewalList.parse(Cfg.renewals(c), now, max);
         if (items.isEmpty()) {
-            TextView hint = Glass.text(c, "Add your renewal dates: scripts/set_renewals.sh", 22, 0xB0FFFFFF, false);
+            TextView hint = Glass.text(c, "No renewal dates added yet", 22, 0xB0FFFFFF, false);
             LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(-2, -2);
             lp.topMargin = Glass.px(16);
             lp.bottomMargin = Glass.px(10);

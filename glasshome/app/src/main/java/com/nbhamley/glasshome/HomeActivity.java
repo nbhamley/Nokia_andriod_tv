@@ -157,10 +157,10 @@ public class HomeActivity extends Activity {
 
         deckSlot = new FrameLayout(this);
         deckSlot.setClipChildren(false);
-        swipePanel.addView(deckSlot, Glass.at(91, 92, 210, 280));
+        swipePanel.addView(deckSlot, Glass.at(95, 84, 202, 262));
         deckInfo = Glass.text(this, "", 22, 0xB3FFFFFF, false);
         deckInfo.setGravity(Gravity.CENTER);
-        swipePanel.addView(deckInfo, Glass.at(0, 380, 392, -1));
+        swipePanel.addView(deckInfo, Glass.at(0, 356, 392, -1));
 
         LinearLayout row = new LinearLayout(this);
         row.setOrientation(LinearLayout.HORIZONTAL);
@@ -286,7 +286,7 @@ public class HomeActivity extends Activity {
         current = deck.get(0);
         // two sheets peeking out behind the card, like a stack
         if (deck.size() > 1) deckSlot.addView(behind(deck.get(1), 10, 6, -4));
-        FrameLayout card = poster(current, 210, 280, 30);
+        FrameLayout card = poster(current, 202, 262, 28);
         card.setRotation(-2f);
         deckSlot.addView(card, new FrameLayout.LayoutParams(-1, -1));
         deckInfo.setText(current.genre + "  ·  " + current.provider);
@@ -297,7 +297,7 @@ public class HomeActivity extends Activity {
     }
 
     private View behind(Catalog.Item it, float dx, float dy, float rot) {
-        FrameLayout f = poster(it, 210, 280, 30);
+        FrameLayout f = poster(it, 202, 262, 28);
         f.setAlpha(0.55f);
         f.setRotation(rot);
         f.setTranslationX(Glass.px(dx));
@@ -325,6 +325,7 @@ public class HomeActivity extends Activity {
         panel.setOrientation(LinearLayout.HORIZONTAL);
         panel.setBackground(Glass.panel(44));
         panel.setClipChildren(false);
+        panel.setGravity(Gravity.CENTER_HORIZONTAL);
         panel.setPadding(Glass.px(38), Glass.px(30), Glass.px(38), Glass.px(24));
         root.addView(panel, Glass.at(96, 584, 1728, 250));
 
@@ -357,29 +358,29 @@ public class HomeActivity extends Activity {
         LinearLayout row = new LinearLayout(this);
         row.setOrientation(LinearLayout.HORIZONTAL);
         row.setClipChildren(false);
-        sec.addView(row);
-        panel.addView(sec);
+        sec.addView(row, new LinearLayout.LayoutParams(-2, -2));
+        panel.addView(sec, new LinearLayout.LayoutParams(-2, -2));
         return row;
     }
 
     private void addSection(LinearLayout panel, String title, String[][] apps) {
         LinearLayout row = null;
         for (final String[] a : apps) {
-            Intent launch = launchIntent(a[0]);
-            if (launch == null) continue;
+            if (launchIntent(a[0]) == null) continue;
             if (row == null) row = section(panel, title);
-            ImageView icon = new ImageView(this);
-            try {
-                icon.setImageDrawable(getPackageManager().getApplicationIcon(a[0]));
-            } catch (PackageManager.NameNotFoundException e) {
-                continue;
-            }
-            icon.setScaleType(ImageView.ScaleType.FIT_CENTER);
+            String letter = a[1].startsWith("Apple") ? "tv" : a[1].substring(0, 1);
+            TextView t = Glass.text(this, letter, 50, 0xFFFFFFFF, true);
+            t.setGravity(Gravity.CENTER);
             final String pkg = a[0];
-            row.addView(tile(icon, a[1], 76, new View.OnClickListener() {
+            row.addView(tile(t, a[1], 100, brand(a[1]), new View.OnClickListener() {
                 @Override public void onClick(View v) { launchPackage(pkg); }
             }));
         }
+    }
+
+    private android.graphics.drawable.Drawable brand(String name) {
+        int c = Parts.tint(name);
+        return Glass.gradient(c, 0xFF0A0E1F, 26);
     }
 
     private void addInputs(LinearLayout panel) {
@@ -422,12 +423,17 @@ public class HomeActivity extends Activity {
     }
 
     private View tile(View icon, String name, float iconSize, View.OnClickListener click) {
+        return tile(icon, name, iconSize, Glass.tileBg(26), click);
+    }
+
+    private View tile(View icon, String name, float iconSize, android.graphics.drawable.Drawable bg,
+                      View.OnClickListener click) {
         LinearLayout t = new LinearLayout(this);
         t.setOrientation(LinearLayout.VERTICAL);
         t.setGravity(Gravity.CENTER_HORIZONTAL);
         t.setClipChildren(false);
         FrameLayout box = new FrameLayout(this);
-        box.setBackground(Glass.tileBg(26));
+        box.setBackground(bg);
         box.setClipChildren(false);
         FrameLayout.LayoutParams ilp = new FrameLayout.LayoutParams(Glass.px(iconSize), Glass.px(iconSize));
         ilp.gravity = Gravity.CENTER;
