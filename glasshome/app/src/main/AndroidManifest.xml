@@ -47,7 +47,7 @@
             </intent-filter>
         </service>
 
-        <!-- adb shell am broadcast -n com.nbhamley.glasshome/.SetData --es renewals "Netflix=2026-11-12" -->
+        <!-- Settings arrive over adb: see glasshome/set_data.sh -->
         <receiver android:name=".SetData" android:exported="true" />
     </application>
 </manifest>
