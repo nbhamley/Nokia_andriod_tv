@@ -1,0 +1,35 @@
+plugins {
+    id 'com.android.application'
+}
+
+android {
+    namespace 'com.nbhamley.glasshome'
+    compileSdk 34
+
+    defaultConfig {
+        // A different id from Clean Your TV (com.gathin.tvhome): both can be installed side by side,
+        // so the working launcher stays as a fallback while this one is tried.
+        applicationId 'com.nbhamley.glasshome'
+        minSdk 26
+        targetSdk 34
+        versionCode 1
+        versionName '0.1'
+    }
+
+    buildTypes {
+        debug { }
+        release {
+            minifyEnabled false
+            // sideloaded over ADB only: the debug key is fine
+            signingConfig signingConfigs.debug
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+}
+
+// Plain framework code on purpose: no AndroidX, no dependencies.
+dependencies { }

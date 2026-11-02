@@ -9,3 +9,7 @@ tools/venv/
 # adb dumps from the TV
 r2_all.txt
 *.apk
+glasshome/.gradle/
+glasshome/build/
+glasshome/app/build/
+glasshome/local.properties

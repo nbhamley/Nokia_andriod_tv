@@ -1,0 +1,132 @@
+[
+ {
+  "provider": "Netflix",
+  "title": "Money Heist",
+  "genre": "Thriller"
+ },
+ {
+  "provider": "Prime Video",
+  "title": "Jack Ryan",
+  "genre": "Action"
+ },
+ {
+  "provider": "Hotstar",
+  "title": "Coco",
+  "genre": "Animation"
+ },
+ {
+  "provider": "Apple TV",
+  "title": "Slow Horses",
+  "genre": "Thriller"
+ },
+ {
+  "provider": "Netflix",
+  "title": "Extraction",
+  "genre": "Action"
+ },
+ {
+  "provider": "Hotstar",
+  "title": "Special Ops",
+  "genre": "Thriller"
+ },
+ {
+  "provider": "Apple TV",
+  "title": "Silo",
+  "genre": "Thriller"
+ },
+ {
+  "provider": "Netflix",
+  "title": "The Mitchells vs. the Machines",
+  "genre": "Animation"
+ },
+ {
+  "provider": "Prime Video",
+  "title": "The Family Man",
+  "genre": "Thriller"
+ },
+ {
+  "provider": "Hotstar",
+  "title": "Avengers: Endgame",
+  "genre": "Action"
+ },
+ {
+  "provider": "Apple TV",
+  "title": "Wolfwalkers",
+  "genre": "Animation"
+ },
+ {
+  "provider": "Netflix",
+  "title": "Squid Game",
+  "genre": "Thriller"
+ },
+ {
+  "provider": "Prime Video",
+  "title": "Reacher",
+  "genre": "Action"
+ },
+ {
+  "provider": "Hotstar",
+  "title": "Zootopia",
+  "genre": "Animation"
+ },
+ {
+  "provider": "Apple TV",
+  "title": "Severance",
+  "genre": "Thriller"
+ },
+ {
+  "provider": "Netflix",
+  "title": "Red Notice",
+  "genre": "Action"
+ },
+ {
+  "provider": "Prime Video",
+  "title": "Paatal Lok",
+  "genre": "Thriller"
+ },
+ {
+  "provider": "Hotstar",
+  "title": "Aarya",
+  "genre": "Thriller"
+ },
+ {
+  "provider": "Apple TV",
+  "title": "Hijack",
+  "genre": "Thriller"
+ },
+ {
+  "provider": "Netflix",
+  "title": "The Sea Beast",
+  "genre": "Animation"
+ },
+ {
+  "provider": "Prime Video",
+  "title": "Citadel",
+  "genre": "Action"
+ },
+ {
+  "provider": "Hotstar",
+  "title": "The Freelancer",
+  "genre": "Thriller"
+ },
+ {
+  "provider": "Apple TV",
+  "title": "Luck",
+  "genre": "Animation"
+ },
+ {
+  "provider": "Netflix",
+  "title": "KPop Demon Hunters",
+  "genre": "Animation"
+ },
+ {
+  "provider": "Hotstar",
+  "title": "Big Hero 6",
+  "genre": "Animation"
+ },
+ {
+  "provider": "Hotstar",
+  "title": "Moana",
+  "genre": "Animation"
+ }
+]

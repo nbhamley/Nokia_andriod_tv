@@ -5,8 +5,8 @@
 # Entries marked (unchecked) were not in that output yet: run the MISSING check before applying.
 #
 # Apply:   launcher/build-and-install.sh FIRST (this list disables the stock launcher), then
-#          TV_HOST=192.168.1.8 tools/disable.sh examples/nokia-atv-r2/debloat.txt
-# Undo:    TV_HOST=192.168.1.8 tools/restore.sh examples/nokia-atv-r2/debloat.txt
+#          TV_HOST=<tv ip> tools/disable.sh examples/nokia-atv-r2/debloat.txt
+# Undo:    TV_HOST=<tv ip> tools/restore.sh examples/nokia-atv-r2/debloat.txt
 # Everything is DISABLED, not uninstalled. Comment out any line you want to keep.
 #
 # Kept on purpose (never add these): the remote/key middleware

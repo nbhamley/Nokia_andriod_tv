@@ -12,9 +12,11 @@ morning (sunrise to noon), evening (until just after sunset) and night.
 Layout rules the pictures follow, so the launcher UI stays readable on top of them:
   * the top 12% is kept calm and dark (Wi-Fi, Settings and the clock sit there);
   * the bottom 40% fades to near black (the dock and the app grid sit there);
-  * orbs and ribbons live in the upper two thirds, mostly off the centre line;
+  * orbs and ribbons live in the upper two thirds, mostly off the centre line; the top-left corner, where the
+    date and time sit, holds light but no orb, and the large orbs sit behind where frosted panels will be;
   * dithering noise is added before the 8-bit conversion so dark gradients never band.
 """
+import io
 import os
 import sys
 
@@ -23,7 +25,8 @@ from PIL import Image
 from scipy.ndimage import gaussian_filter
 
 W, H = 1920, 1080
-OUT = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "themes", "bhamley-glass", "wallpapers")
+MAX_KB = 299  # the launcher project's theme recipe keeps every picture under 300 KB
+OUT =os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "themes", "bhamley-glass", "wallpapers")
 
 Y, X = np.mgrid[0:H, 0:W].astype(np.float32)
 
@@ -101,7 +104,7 @@ def morning():
     ribbon(img, 560, 55, 1200, 2.1, 22, 520, 0.6, 38, "#7fe3d6", "#ffd9a8", 0.20)
     orb(img, 1560, 300, 150, "#ffc9a3", 0.95)
     orb(img, 1270, 205, 56, "#9ff0e4", 0.85)
-    orb(img, 255, 255, 98, "#7fe3d6", 0.85)
+    orb(img, 470, 548, 94, "#7fe3d6", 0.85)
     orb(img, 1740, 520, 40, "#ffe0bd", 0.7)
     return finish(img, seed=11)
 
@@ -115,7 +118,7 @@ def evening():
     ribbon(img, 575, 50, 1100, 3.0, 20, 480, 2.2, 36, "#ff9a3d", "#ff6fb0", 0.22)
     orb(img, 1480, 285, 142, "#ff7fb8", 0.95)
     orb(img, 1215, 180, 52, "#ffb072", 0.85)
-    orb(img, 300, 260, 104, "#9a86ff", 0.9)
+    orb(img, 470, 548, 100, "#9a86ff", 0.9)
     orb(img, 1730, 505, 42, "#ffc5e0", 0.7)
     return finish(img, seed=23)
 
@@ -129,7 +132,7 @@ def night():
     ribbon(img, 565, 52, 1150, 2.6, 20, 500, 0.9, 36, "#4aa8ff", "#9a86ff", 0.20)
     orb(img, 1520, 290, 146, "#8f78ff", 0.95)
     orb(img, 1240, 195, 54, "#5ecbff", 0.85)
-    orb(img, 280, 255, 100, "#35c9d6", 0.88)
+    orb(img, 470, 548, 98, "#35c9d6", 0.88)
     orb(img, 1745, 515, 40, "#b9a8ff", 0.7)
     return finish(img, seed=37)
 
@@ -139,9 +142,26 @@ def main():
     for name, fn in (("morning", morning), ("evening", evening), ("night", night)):
         pixels = fn()
         path = os.path.join(OUT, name + ".jpg")
-        Image.fromarray(pixels, "RGB").save(path, "JPEG", quality=92, subsampling=0, optimize=True)
-        print("wrote", os.path.normpath(path), "%d KB" % (os.path.getsize(path) // 1024))
+        data, quality = encode(pixels)
+        with open(path, "wb") as fh:
+            fh.write(data)
+        print("wrote", os.path.normpath(path), "%d KB at JPEG quality %d" % (len(data) // 1024, quality))
     return 0
+
+
+def encode(pixels):
+    """The highest JPEG quality that stays under MAX_KB.
+
+    Not the usual 90 to 92: there the quantiser erases the dither noise and the dark gradients turn into faint
+    8x8 blocks (scripts/validate.py measures it). The launcher project's theme recipe keeps a picture under
+    300 KB, and quality 95 to 96 meets both: the noise survives and the file stays small.
+    """
+    for quality in range(97, 90, -1):
+        buf = io.BytesIO()
+        Image.fromarray(pixels, "RGB").save(buf, "JPEG", quality=quality, subsampling=0, optimize=True)
+        if len(buf.getvalue()) <= MAX_KB * 1024:
+            return buf.getvalue(), quality
+    return buf.getvalue(), quality
 
 
 if __name__ == "__main__":
