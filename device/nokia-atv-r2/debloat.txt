@@ -1,0 +1,73 @@
+# Nokia ATV R2 (manufacturer SCBC, device R2, Realtek), Android TV 11 (API 30)
+# Fingerprint: NOKIA/NOKIA/R2:11/RTT7.220308.001/1050:user/release-keys
+# Based on examples/nokia-r4 and examples/sanyo-atv-r2 (same SCBC platform), then checked against
+# this unit's `pm list packages` for the com.apps.* and com.google.* entries.
+# Entries marked (unchecked) were not in that output yet: run the MISSING check before applying.
+#
+# Apply:   launcher/build-and-install.sh FIRST (this list disables the stock launcher), then
+#          TV_HOST=192.168.1.8 tools/disable.sh examples/nokia-atv-r2/debloat.txt
+# Undo:    TV_HOST=192.168.1.8 tools/restore.sh examples/nokia-atv-r2/debloat.txt
+# Everything is DISABLED, not uninstalled. Comment out any line you want to keep.
+#
+# Kept on purpose (never add these): the remote/key middleware
+# (com.apps.virtualkey, smartkey, fivekey, bluetoothremote), com.apps.sys (SystemProvider),
+# com.apps.puresound / audiolink (audio), the firmware updater (com.apps.ota, com.apps.authota),
+# com.google.android.sss.authbridge, com.google.android.tv.remote.service (phone remote),
+# the setup/initsetup stubs, GMS, WebView and anything com.realtek.* (HDMI/AV/tuner inputs).
+#
+# Live TV is not used by the owner. The tuner/HDMI input services are NOT disabled, because HDMI
+# and AV inputs run through the same TV-input stack. Simply leave Live TV off the launcher's dock.
+#
+# Owner-installed apps (not preloaded): Hotstar (in.startv.hotstar) and Apple TV
+# (com.apple.atve.androidtv.appletv). Both stay enabled.
+# Already disabled before any list: com.creative.fastscreen.tv (not in this list, so restore.sh
+# leaves it as it was).
+
+# Ad tech, telemetry, data consent and feedback
+com.apps.function.gdpr                           # SCBC data-consent agent
+com.google.android.tvrecommendations
+com.realtek.leanbacklauncher.partnercustomizer   # (unchecked) recommendation-row config for the stock home
+android.autoinstalls.config.scbc.device          # (unchecked) Play auto-install of partner apps
+com.google.android.partnersetup                  # Google RLZ partner attribution pings
+com.google.android.feedback
+com.google.android.syncadapters.calendar
+com.google.android.play.games
+com.vewd.core.service                            # (unchecked) Opera/Vewd webapp runtime
+
+# Promo content, overlays and background cleaners
+com.apps.channels                                # "S-Channel" content rows on Home
+com.apps.eshow                                   # E-SHOW in-store demo / promo
+com.apps.esticker                                # store-demo stickers overlay
+com.apps.clear                                   # "TV Booster" cleaner
+com.apps.networkspeed                            # speed overlay
+com.apps.timeclock                               # WorldClock
+com.apps.wifihotspot                             # TV as a Wi-Fi hotspot
+com.google.android.apps.nbu.smartconnect.tv      # background connect service
+
+# Preloaded Google media apps (comment out any you use)
+com.google.android.videos                        # Play Movies & TV
+com.google.android.youtube.tvmusic               # YouTube Music
+
+# Prime Video is kept (the owner uses it). Sony LIV, Jio, Airtel and Spotify are not on this TV,
+# so they are not in the list. Netflix (com.netflix.ninja) is preloaded and left alone.
+# com.amazon.amazonvideo.livingroom
+
+# Print service, nobody prints from a TV
+com.android.printspooler
+
+# Optional, decide before applying (all present on this TV):
+# com.google.android.katniss                     # Assistant: disabling kills the remote's mic button
+# com.google.android.apps.mediashell             # Chromecast built-in: disabling stops casting to the TV
+# com.google.android.marvin.talkback             # screen reader, safe to disable if unused
+# com.google.android.tts                         # text-to-speech, safe to disable if unused
+# com.google.android.youtube.tv                  # keep unless you replace YouTube (e.g. SmartTube)
+# com.apps.usbmediaplayer                        # USB player, holds TV_INPUT_HARDWARE: needs TVINPUT_ALLOW=1
+
+# Factory tools and screensaver
+com.apps.factory.ui
+com.realtek.factorytools                         # (unchecked)
+com.google.android.backdrop                      # ambient screensaver; set the launcher's ClockDream first:
+                                                 # settings put secure screensaver_components com.gathin.tvhome/.ClockDream
+
+# Stock launcher, replaced by launcher/ (leave this LAST, only after the new launcher is installed)
+com.google.android.tvlauncher

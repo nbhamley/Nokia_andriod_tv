@@ -1,0 +1,11 @@
+# the upstream launcher project, cloned by scripts/setup.sh
+/cleanyourtv/
+
+# Python
+__pycache__/
+*.pyc
+tools/venv/
+
+# adb dumps from the TV
+r2_all.txt
+*.apk

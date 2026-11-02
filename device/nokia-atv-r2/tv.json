@@ -1,0 +1,6 @@
+{
+  "tv": "Nokia ATV R2 (SCBC R2, Realtek)",
+  "os": "Android TV 11",
+  "brand": "Nokia",
+  "notes": "Draft from the Nokia R4 list (same Android 11 RTT7 Realtek family): ad tech, Vewd, partner auto-installs, E-SHOW/eSticker overlays and factory tools off; the com.apps remote/key middleware and OTA kept; owner-installed Hotstar and Apple TV untouched; network ADB on port 5555"
+}
